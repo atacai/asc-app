@@ -1,98 +1,56 @@
 <div class="row mt-5 mb-5">
 	<div class="col-md-10 ml-auto mr-auto">
 		<div class="card">
-			<div class="card-header d-flex">
-				<div class="mr-auto">
-					<h5 class="mt-2">Hotels</h5>
-				</div>
-				<div class="ml-auto">
-					<input type="hidden" id="hdn-language" value="<%= !params['lang'].blank? ? params['lang'] : 'en' %>"/>
-					<select id="select-language" class="form-control">
-						<option value="en">English</option>
-						<option value="zh">Chinese</option>
-						<option value="ja">Japanese</option>
-					</select>
-				</div>
-			</div>
+    <%= form_tag (search_path), method: :get do %>
 			<div class="card-body">
-        <table id="dataTable" class="table table-hover" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Star</th>
-              <th>Price</th>
-              <th>Rating</th>
-            </tr>
-          </thead>
-          <tbody>
-          	<% @hotels.each do |hotel| %>
-	          	<tr>
-	          		<td>
-	          			<input type="hidden" class="hotel-id" value="<%= hotel["id"] %>"/>
-	          			<input type="hidden" class="hotel-name" value="<%= hotel["name"] %>"/>
-	          			<input type="hidden" class="hotel-rating" value="<%= hotel["rating"] %>"/>
-	          			<input type="hidden" class="hotel-stars" value="<%= hotel["stars"] %>"/>
-	          			<input type="hidden" class="hotel-address" value="<%= hotel["address"] %>"/>
-	          			<input type="hidden" class="hotel-photo" value="<%= hotel["photo"] %>"/>
-	          			<input type="hidden" class="hotel-price" value="<%= hotel["price"] %>"/>
-	          			<input type="hidden" class="hotel-description" value="<%= hotel["description"] %>"/>
-	          			<%= hotel["name"] %></td>
-		          	<td><%= hotel["stars"] %></td>
-		          	<td>$ <%= hotel["price"] %></td>	          	
-		          	<td><%= hotel["rating"] %></td>
-		          </tr>
-						<% end %>
-          </tbody>
-        </table>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Hotel Name</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
         <div class="row">
-        	<div class="col-md-6">
-        		<img id="hotel-image" width="100%"/>
-        	</div>
-        	<div class="col-md-6">
-        		<table>
-        			<tr>
-        				<td>Rating</td>
-        				<td>:</td>
-        				<td><span id="hotel-rating"></span></td>
-        			</tr>
-        			<tr>
-        				<td>Price</td>
-        				<td>:</td>
-        				<td>$ <span id="hotel-price"></span></td>
-        			</tr>
-        			<tr valign="top">
-        				<td>Address</td>
-        				<td>:</td>
-        				<td><span id="hotel-address"></span></td>
-        			</tr>
-        		</table>
-        	</div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= label_tag :name %>
+              <%= text_field_tag :name, "", class: "form-control", placeholder: "Name ..." %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= label_tag :price %>
+              <%= number_field_tag :price, "", class: "form-control", placeholder: "Price ..." %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= label_tag :address %>
+              <%= text_field_tag :address, "", class: "form-control", placeholder: "Address ..." %>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group">
+              <%= label_tag :stars %>
+              <%#= select_tag %>
+              <select id="stars" class="form-control">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="rating">Rating</label>
+              <input type="number" class="form-control" id="rating" placeholder="Rating ..."/>
+            </div>
+          </div>
         </div>
-        <div class="row mt-3">
-        	<div class="col-md-12">
-        		<span id="hotel-description"></span>
-        	</div>
+        <div class="row">
+          <div class="col-md-2 ml-auto text-right">
+            <%= hidden_field_tag :lang, (!params['lang'].blank? ? params['lang'] : 'en') %>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Book Now</button>
-      </div>
+			</div>
+    <% end %>
     </div>
   </div>
 </div>

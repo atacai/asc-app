@@ -4,8 +4,28 @@
 
 body {
 	font-size: .875rem;
+	color: #333333;
 }
 
-#dataTable > tbody > tr:hover {
+.card-hotel-image > img {
+	width: 275px;
+	height: 175px;
+}
+
+.card-hotel-name {
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.card-hotel-address > i, .card-hotel-rating > i, .card-hotel-price > i {
+	width: 20px;
+}
+
+.card-hotel:hover {
 	cursor: pointer;
 }
+
+/*
+#dataTable > tbody > tr:hover {
+	cursor: pointer;
+}*/
