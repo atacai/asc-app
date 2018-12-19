@@ -104,7 +104,7 @@ export default {
       hotels_ja: [],
       hotels: [],
       filtered_hotels: [],
-      language: localStorage.language,
+      language: localStorage.language == '' ? 'en' : localStorage.language,
       search_name: '',
       search_price: '',
       search_address: '',
@@ -126,6 +126,7 @@ export default {
       if (!localStorage.language || localStorage.language == 'en') {
         this.hotels = en_response.data
         this.filtered_hotels = en_response.data
+        localStorage.language = 'en' // make sure language is en when localstorage is blank
       } else if (localStorage.language == 'zh') {
         this.hotels = zh_response.data
         this.filtered_hotels = zh_response.data
