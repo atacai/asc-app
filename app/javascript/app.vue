@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="ml-5 mr-5">
+    <!-- search box -->
     <div class="row mt-5">
       <div class="col-md-12 ml-auto mr-auto">
         <div class="card">
@@ -48,18 +49,18 @@
         </div>
       </div>
     </div>
-
-  <div class="row mt-5 mb-1">
-    <label for="select-language" class="col-md-1 col-form-label ml-auto">Language</label>
-    <div class="col-md-2">
-      <select v-model="language" id="select-language" name="language" class="form-control" v-on:change="change_language">
-        <option value="en">English</option>
-        <option value="zh">Chinese</option>
-        <option value="ja">Japanese</option>
-      </select>
+    <!-- language -->
+    <div class="row mt-5 mb-1">
+      <label for="select-language" class="col-md-1 col-form-label ml-auto">Language</label>
+      <div class="col-md-2">
+        <select v-model="language" id="select-language" name="language" class="form-control" v-on:change="change_language">
+          <option value="en">English</option>
+          <option value="zh">Chinese</option>
+          <option value="ja">Japanese</option>
+        </select>
+      </div>
     </div>
-  </div>
-
+    <!-- result -->
     <div class="row mb-5">
       <div class="col-md-3" v-for="hotel in filtered_hotels">
         <div class="card-body card-hotel">
@@ -103,7 +104,7 @@ export default {
       hotels_ja: [],
       hotels: [],
       filtered_hotels: [],
-      language: 'en',
+      language: localStorage.language,
       search_name: '',
       search_price: '',
       search_address: '',
@@ -122,8 +123,16 @@ export default {
       this.hotels_zh = zh_response.data
       this.hotels_ja = ja_response.data
       // default is english
-      this.hotels = en_response.data
-      this.filtered_hotels = en_response.data
+      if (!localStorage.language || localStorage.language == 'en') {
+        this.hotels = en_response.data
+        this.filtered_hotels = en_response.data
+      } else if (localStorage.language == 'zh') {
+        this.hotels = zh_response.data
+        this.filtered_hotels = zh_response.data
+      } else if (localStorage.language == 'ja') {
+        this.hotels = ja_response.data
+        this.filtered_hotels = ja_response.data
+      }
     }))
   },
   methods: {
@@ -181,6 +190,7 @@ export default {
       } else if (this.language == 'ja') {
         this.hotels = this.hotels_ja
       }
+      localStorage.language = this.language
       this.search()
     },
   }
