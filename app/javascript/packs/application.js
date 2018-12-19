@@ -12,6 +12,8 @@
 
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
+import bootstrapvue from 'bootstrap-vue'
+Vue.use(bootstrapvue)
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(document.createElement('app'))

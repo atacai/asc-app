@@ -62,7 +62,7 @@
     </div>
     <!-- result -->
     <div class="row mb-5">
-      <div class="col-md-3" v-for="hotel in filtered_hotels">
+      <div class="col-md-3" v-for="hotel in filtered_hotels" v-on:click="show_modal(hotel.id)">
         <div class="card-body card-hotel">
           <div class="card-hotel-image">
             <img v-bind:src="hotel.photo" />
@@ -88,11 +88,100 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <b-modal ref="myModalRef" hide-footer size="lg" v-bind:title="modal_attributes.name">
+      <div class="modal-body">
+        <slot name="body">
+          <div class="row">
+            <div class="col-md-4">
+              <img id="hotel-image" width="100%" v-bind:src="modal_attributes.photo"/>
+            </div>
+            <div class="col-md-8">
+              <table>
+                <tr valign="top">
+                  <td><b>Address</b></td>
+                  <td>:</td>
+                  <td><span id="hotel-address">{{ modal_attributes.address }}</span></td>
+                </tr>
+                <tr>
+                  <td><b>Price</b></td>
+                  <td>:</td>
+                  <td>$ <span id="hotel-price">{{ modal_attributes.price }}</span></td>
+                </tr>
+                <tr>
+                  <td><b>Rating</b></td>
+                  <td>:</td>
+                  <td><span id="hotel-rating">{{ modal_attributes.rating }}</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </slot>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <span id="hotel-description" v-html="modal_attributes.description"></span>
+          </div>
+        </div>
+      </div>
+      <b-btn class="mt-3" variant="outline-primary" block>Book Now</b-btn>
+    </b-modal>
+
+<!--     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              {{ modal_name }}
+              <div id="hotel-stars">
+                <i class="fas fa-star text-warning" v-for="i in modal_stars"></i><i class="far fa-star text-warning" v-for="i in 5-modal_stars"></i>
+              </div>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4">
+                <img id="hotel-image" width="100%"/>
+              </div>
+              <div class="col-md-8">
+                <table>
+                  <tr valign="top">
+                    <td><b>Address</b></td>
+                    <td>:</td>
+                    <td><span id="hotel-address">{{ modal_address }}</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Price</b></td>
+                    <td>:</td>
+                    <td>$ <span id="hotel-price">{{ modal_price }}</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Rating</b></td>
+                    <td>:</td>
+                    <td><span id="hotel-rating">{{ modal_rating }}</span></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <span id="hotel-description">{{ modal_description }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -110,6 +199,14 @@ export default {
       search_address: '',
       search_stars: '',
       search_rating: '',
+      modal_attributes: {
+        name: '',
+        stars: '',
+        address: '',
+        price: '',
+        rating: '',
+        description: '',
+      },
     }
   },
   mounted () {
@@ -194,6 +291,23 @@ export default {
       localStorage.language = this.language
       this.search()
     },
+    show_modal: function (id) {
+      const modal_hotel = this.filtered_hotels.filter(hotel => {
+        return hotel['id'] == id
+      })
+
+      if (modal_hotel.length == 1) {
+        this.modal_attributes.name = modal_hotel[0]['name']
+        this.modal_attributes.photo = modal_hotel[0]['photo']
+        this.modal_attributes.stars = modal_hotel[0]['stars']
+        this.modal_attributes.address = modal_hotel[0]['address']
+        this.modal_attributes.price = modal_hotel[0]['price']
+        this.modal_attributes.rating = modal_hotel[0]['rating']
+        this.modal_attributes.description = modal_hotel[0]['description']
+
+        this.$refs.myModalRef.show()
+      }
+    }
   }
 }
 </script>
