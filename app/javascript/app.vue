@@ -8,22 +8,22 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <input type="text" v-model="search_name" id="name" class="form-control" placeholder="Name ..." />
+                  <input type="text" v-model="search_attributes.name" id="name" class="form-control" placeholder="Name ..." />
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <input type="number" v-model="search_price" id="price" class="form-control" placeholder="Price ..." />
+                  <input type="number" v-model="search_attributes.price" id="price" class="form-control" placeholder="Price ..." />
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <input type="text" v-model="search_address" id="address" class="form-control" placeholder="Address ..." />
+                  <input type="text" v-model="search_attributes.address" id="address" class="form-control" placeholder="Address ..." />
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <select id="stars" v-model="search_stars" class="form-control">
+                  <select id="stars" v-model="search_attributes.stars" class="form-control">
                     <option value="">Star</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -35,7 +35,7 @@
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <input type="number" v-model="search_rating" id="rating" class="form-control" placeholder="Rating ..."/>
+                  <input type="number" v-model="search_attributes.rating" id="rating" class="form-control" placeholder="Rating ..."/>
                 </div>
               </div>
             </div>
@@ -142,11 +142,13 @@ export default {
       hotels: [],
       filtered_hotels: [],
       language: localStorage.language || 'en',
-      search_name: '',
-      search_price: '',
-      search_address: '',
-      search_stars: '',
-      search_rating: '',
+      search_attributes: {
+        name: '',
+        price: '',
+        address: '',
+        stars: '',
+        rating: '',
+      },
       modal_attributes: {
         name: '',
         stars: '',
@@ -186,45 +188,39 @@ export default {
       return value.toFixed(2)
     },
     search: function () {
-      const name = this.search_name.toLowerCase()
-        , price = this.search_price
-        , address = this.search_address.toLowerCase()
-        , stars = this.search_stars
-        , rating = this.search_rating
-
       // filter name
-      if (name) {
+      if (this.search_attributes.name) {
         this.filtered_hotels = this.hotels.filter(hotel => {
-          return hotel['name'].toLowerCase().includes(name)
+          return hotel['name'].toLowerCase().includes(this.search_attributes.name)
         })
       }
       // filter price
-      if (price) {
+      if (this.search_attributes.price) {
         this.filtered_hotels = this.hotels.filter(hotel => {
-          return hotel['price'] <= price
+          return hotel['price'] <= this.search_attributes.price
         })
       }
       // filter address
-      if (address) {
+      if (this.search_attributes.address) {
         this.filtered_hotels = this.hotels.filter(hotel => {
-          return hotel['address'].toLowerCase().includes(address)
+          return hotel['address'].toLowerCase().includes(this.search_attributes.address)
         })
       }
       // filter stars
-      if (stars) {
+      if (this.search_attributes.stars) {
         this.filtered_hotels = this.hotels.filter(hotel => {
-          return hotel['stars'] >= stars
+          return hotel['stars'] >= this.search_attributes.stars
         })
       }
       // filter rating
-      if (rating) {
+      if (this.search_attributes.rating) {
         this.filtered_hotels = this.hotels.filter(hotel => {
-          return hotel['rating'] >= rating
+          return hotel['rating'] >= this.search_attributes.rating
         })
       }
 
       // no filter
-      if (!name && !price && !address && !stars && !rating) {
+      if (!this.search_attributes.name && !this.search_attributes.price && !this.search_attributes.address && !this.search_attributes.stars && !this.search_attributes.rating) {
         this.filtered_hotels = this.hotels
       }
     },
