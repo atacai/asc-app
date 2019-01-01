@@ -141,7 +141,7 @@ export default {
       hotels_ja: [],
       hotels: [],
       filtered_hotels: [],
-      language: localStorage.language == '' ? 'en' : localStorage.language,
+      language: localStorage.language || 'en',
       search_name: '',
       search_price: '',
       search_address: '',
