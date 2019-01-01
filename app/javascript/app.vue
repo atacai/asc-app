@@ -125,58 +125,6 @@
       </div>
       <b-btn class="mt-3" variant="outline-primary" block>Book Now</b-btn>
     </b-modal>
-
-<!--     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              {{ modal_name }}
-              <div id="hotel-stars">
-                <i class="fas fa-star text-warning" v-for="i in modal_stars"></i><i class="far fa-star text-warning" v-for="i in 5-modal_stars"></i>
-              </div>
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-4">
-                <img id="hotel-image" width="100%"/>
-              </div>
-              <div class="col-md-8">
-                <table>
-                  <tr valign="top">
-                    <td><b>Address</b></td>
-                    <td>:</td>
-                    <td><span id="hotel-address">{{ modal_address }}</span></td>
-                  </tr>
-                  <tr>
-                    <td><b>Price</b></td>
-                    <td>:</td>
-                    <td>$ <span id="hotel-price">{{ modal_price }}</span></td>
-                  </tr>
-                  <tr>
-                    <td><b>Rating</b></td>
-                    <td>:</td>
-                    <td><span id="hotel-rating">{{ modal_rating }}</span></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md-12">
-                <span id="hotel-description">{{ modal_description }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Book Now</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
