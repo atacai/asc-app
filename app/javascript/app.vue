@@ -89,7 +89,7 @@
       </div>
     </div>
     <!-- Modal -->
-    <b-modal ref="myModalRef" hide-footer size="lg" v-bind:title="modal_attributes.name">
+    <b-modal ref="hotelModalRef" hide-footer size="lg" v-bind:title="modal_attributes.name">
       <div class="modal-body">
         <slot name="body">
           <div class="row">
@@ -305,7 +305,7 @@ export default {
         this.modal_attributes.rating = modal_hotel[0]['rating']
         this.modal_attributes.description = modal_hotel[0]['description']
 
-        this.$refs.myModalRef.show()
+        this.$refs.hotelModalRef.show()
       }
     }
   }
