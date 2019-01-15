@@ -184,8 +184,8 @@ export default {
     }))
   },
   methods: {
-    format_decimal: function (value) {
-      return value.toFixed(2)
+    format_decimal: function (value, decimal_point) {
+      return value.toFixed(decimal_point)
     },
     search: function () {
       // filter name
